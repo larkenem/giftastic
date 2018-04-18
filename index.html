@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>GIFTASTIC</title>
+  
+  <!-- <script src-"assets/javascript/game.js"></script> -->
+  
+</head>
+
+<body>
+<div id="buttons"></div>
+<div id="gifs"></div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+var main = $("body");
+var topics = ["say what!?", "girl, please", "OMG", "oh, hell no!", "LOL", "YAS!", "WTF?!", "FML"];
+var btns = main.find("#buttons");
+
+for (x = 0; x < topics.length; x++){
+
+    var topicsButton = $("<button>");
+
+    // topicsButton.addClass("topics-button topics topics-button-color");
+
+    topicsButton.attr("data-topics", topics[x]);
+
+    topicsButton.text(topics[x]);
+
+    btns.append(topicsButton);
+
+    // var b = $("<button>" + topics[0] + "</button>")
+    // buttons.appendTo(b);
+}
+
+// $("button").on("click", function() {
+
+//   var topics = $(this).data("search");
+
+//   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=NvJThpJjjt7FbQnlc8ajTkBkcMsflaVV&limit=10";
+
+//   $.ajax({
+//     url: queryURL,
+//     method:"GET"})
+//     .done(function(response){
+//       for (var x = 0; x < response.data.length; x++){
+//         $("#gifs").append("<p>Rating: " + response.data[x].ratings +"</p>");
+//         $("#gifs").append("<img src=''" + response.data[x].images.downsized.url + "'>");
+//       }
+//     })
+
+});
+  
+
+</script>
+</body>
+
+</html>

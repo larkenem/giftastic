@@ -4,60 +4,126 @@
 <head>
   <meta charset="UTF-8">
   <title>GIFTASTIC</title>
-  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> -->
   <!-- <script src-"assets/javascript/game.js"></script> -->
-  
+
 </head>
 
 <body>
-<div id="buttons"></div>
-<div id="gifs"></div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript">
+  <div class "container">
+    <div class="row">
+      <div class="col-lg-3 col-sm-12">
+        <form id="newGif">
+          <label for="gif-input"></label>
+          <input type="text" id="gif-input">
+          <br>
+          <br>
+          <input id="add-gif" type="submit" value="Shazam!">
+        </form>
+      </div>
 
-$(document).ready(function(){
+      <div class="col-lg-9 col-sm-12">
 
-var main = $("body");
-var topics = ["say what!?", "girl, please", "OMG", "oh, hell no!", "LOL", "YAS!", "WTF?!", "FML"];
-var btns = main.find("#buttons");
+        <div id="buttons"></div>
+        <br>
+        <div id="gifs"></div>
+        <br>
+        <br>
+      </div>
+    </div>
 
-for (x = 0; x < topics.length; x++){
 
-    var topicsButton = $("<button>");
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
 
-    // topicsButton.addClass("topics-button topics topics-button-color");
+        var main = $("body");
+        var topics = ["say what!?", "girl, please", "OMG", "oh, hell no!", "LOL", "YAS!", "WTF?!", "FML"];
+        var btns = main.find("#buttons");
 
-    topicsButton.attr("data-topics", topics[x]);
+        function renderButtons() {
 
-    topicsButton.text(topics[x]);
+          $("#buttons").empty();  
 
-    btns.append(topicsButton);
+          for (x = 0; x < topics.length; x++) {
 
-    // var b = $("<button>" + topics[0] + "</button>")
-    // buttons.appendTo(b);
-}
+            var topicsButton = $("<button>");
 
-// $("button").on("click", function() {
+            // topicsButton.addClass("topics-button topics topics-button-color");
 
-//   var topics = $(this).data("search");
+            topicsButton.attr("data-topics", topics[x]);
 
-//   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=NvJThpJjjt7FbQnlc8ajTkBkcMsflaVV&limit=10";
+            topicsButton.text(topics[x]);
 
-//   $.ajax({
-//     url: queryURL,
-//     method:"GET"})
-//     .done(function(response){
-//       for (var x = 0; x < response.data.length; x++){
-//         $("#gifs").append("<p>Rating: " + response.data[x].ratings +"</p>");
-//         $("#gifs").append("<img src=''" + response.data[x].images.downsized.url + "'>");
-//       }
-//     })
+            btns.append(topicsButton);
 
-});
-  
+          };
+      
 
-</script>
+
+          $("button").on("click", function () {
+
+            var x = $(this).attr("data-topics");
+
+            console.log(x);
+
+
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + x +
+              "&api_key=NvJThpJjjt7FbQnlc8ajTkBkcMsflaVV&limit=10";
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+              })
+
+              .then(function (response) {
+
+                console.log(queryURL);
+                console.log(response);
+
+                var results = response.data;
+
+                for (var x = 0; x < results.length; x++) {
+
+                  var gifDiv = $("<div>");
+
+                  var p = $("<p>").text("Rating: " + results[x].rating);
+
+                  var gifImage = $("<img>");
+
+                  gifImage.attr("src", results[x].images.fixed_height.url);
+
+                  gifDiv.append(p);
+                  gifDiv.append(gifImage);
+
+                  $("#gifs").prepend(gifDiv);
+                };
+
+                renderButtons();
+              });
+          });
+};
+
+
+          $("#add-gif").on("click", function (event) {
+
+            event.preventDefault();
+
+            var newInput = $("#gif-input").val().trim();
+
+            topics.push(newInput);
+
+            renderButtons();
+          });
+
+        renderButtons();
+
+      });
+    </script>
 </body>
 
 </html>

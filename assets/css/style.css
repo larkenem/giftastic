@@ -1,0 +1,9 @@
+.container {
+    box-sizing: border-box;
+    margin: auto;
+}
+
+#newGif {
+    float: left;
+
+}

@@ -1,9 +1,26 @@
-.container {
-    box-sizing: border-box;
-    margin: auto;
+body {
+    background: url("../images/galaxy.jpg");
+    background-image: 100%;
+    
 }
 
-#newGif {
-    float: left;
+.container {
+    box-sizing: border-box;
 
+}
+
+#buttons,
+#add-gif, 
+#newGif,
+type,
+value,
+#gif-input {
+    font-family: 'Slabo 27px', serif;
+}
+
+#gifs {
+    font-family: 'Slabo 27px', serif;
+    font-weight: bolder;
+    font-size: 24px;
+    color: white    ;
 }
